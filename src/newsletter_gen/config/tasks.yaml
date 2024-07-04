@@ -1,0 +1,126 @@
+research_task:
+  description: >
+    Conduct a thorough research about the latest news on {topic}. Be sure to look for sources that are reliable and publish recent news. Do not include articles that are not news material or that are not directly related to {topic}.
+    With this research, compile a list of the most relevant news stories that you found. 
+
+    Follow these rules:
+    - Only include articles that are especially relevant to {topic}. Do not include any news that are not directly related to {topic}. 
+    - Do not include sources that are not a news article. If the content of the page includes a list of articles or looks like the front page of a website, do not include it in the list!
+    - Write a very LONG and DETAILED summary of the news IN THE STYLE OF a Morning Brew newsletter. Make the summary as long as necessary to include all the relevant information.
+    - Include the URL of the article where you found the news.
+    - Include a minimum of 5 news articles and a maximum of 8 news articles in the list.
+    - When using the Search Tool, your search query should be concise (for example, "latest news on {topic}").
+
+    IMPORTANT INSTRUCTIONS ABOUT USING TOOLS: When using tools, DO NOT ESCAPE the underscore character "_", EVER. If you need to use a tool and pass in a parameter called 'search_query', you should write 'search_query', not 'search\_query'. THIS IS VERY IMPORTANT, else the tool will not work.
+
+  expected_output: >
+    A markdown document with the most relevant news stories. Each news story should contain the following:
+    - Title of the news
+    - Summary of the news
+    - URL of the article where the news was found
+
+    Here are some examples of the format of a news article that you could include in the document:
+    
+    <EXAMPLE>
+      Story 1:
+      - Title: **Big Tech faces European crackdown**
+      - **Summary:** When it came to winning over European users, Big Tech companies pretty much hopped over from the US and declared, “I came, I saw, I conquered.” But European antitrust regulators have greeted them with much more skepticism, and it looks like AI’s $3 trillion hero, Nvidia, will be the next one to face a potential smackdown. 
+      French antitrust regulators are about to charge Nvidia with allegedly engaging in anticompetitive conduct, which would make it the first regulator to accuse the chipmaker of abusing its position since it came to dominate the AI business, Reuters reported this week. While the specific charges they intend to bring are not public, the regulator published a report last week on competition in the generative AI space that raised concerns about potential misconduct by chipmakers. 
+      Nvdia’s not alone under the microscope.A separate antitrust investigation into Nvidia by EU-wide regulators will likely be put on hold while the French authority proceeds, per Reuters. Still, those regulators will have plenty of Big Tech battles to keep them busy. Since the EU’s broad new digital competition law kicked in recently, regulators have accused Apple, Microsoft, and Meta of violating it. If the EU concludes the companies acted anti-competitively, it could fine them each 10% of their global revenue (or even more for repeated actions). In the face of regulatory hurdles, Apple, Meta, and Google have delayed bringing AI products to Europe. 
+      With clear EU v. Big Tech battle lines drawn, some on the tech side say it’s Europe, which has yet to produce a homegrown tech giant, that will get bruised in the fight. Former Facebook VP of Product Sam Lessin said on X that eventually tech companies will decide Europe’s not worth it, and Europeans will just have to “live with crappy digital services and a crappy digital economy.” 
+      It’s not all smooth sailing for Big Tech in the US, either. US regulators have also taken aim at Big Tech—and despite some embarrassing losses, they aren’t slowing down. Last month, the Department of Justice and the Federal Trade Commission reportedly reached a deal divvying up how to investigate Microsoft, OpenAI, and Nvidia.
+      - **URL:** [Source](https://www.reuters.com/technology/french-antitrust-regulators-preparing-nvidia-charges-sources-say-2024-07-01/)
+      - **URL:** [Source](https://www.wsj.com/articles/lina-khan-is-taking-on-the-worlds-biggest-tech-companiesand-losing-9d8d003e)
+    </EXAMPLE>
+
+    <EXAMPLE>
+      Story 2:
+      - Title: **Greece introduces a 6-day workweek**
+      - **Summary:** Greece has given us some pretty good ideas in the past, like democracy and Euclidean geometry, but we’re hoping its latest innovation—namely, a six-day workweek—doesn’t catch on. 
+      New regulations that took effect in Greece this week extend the typical 40-hour workweek to 48 for private businesses providing round-the-clock services. The first-of-their-kind rules in the EU are an effort to boost the Greek economy, which has only recently begun to rebound from a decade-long slump. 
+      Greece’s business-friendly government says the move is necessary to address a skilled worker shortage and combat unpaid overtime. 
+      Meanwhile, labor unions denounced it as “barbaric.”
+      For some, it may not be much of a change. Greek workers already log more hours than those in any other EU nation—as well as more than employees in the famously workaholic US and Japan, CNBC reports. Workers in Greece averaged 1,886 working hours in 2022, compared to 1,811 in the US and 1,571 across the EU.
+      The new Greek rules fly in the face of a broader trend toward shorter workweeks. The four-day week is gaining momentum, with trials showing it increases productivity. Almost one-third of US businesses are considering cutting their workweek down, according to a survey of CEOs by KPMG released in April.
+      - **URL:** [Source](https://www.cnbc.com/2024/07/02/greece-becomes-first-eu-country-to-introduce-a-six-day-working-week.html)
+      - **URL:** [Source](https://www.cnn.com/2024/04/12/business/four-day-workweek-survey/index.html)
+    </EXAMPLE>
+
+    <EXAMPLE>
+      Story 3:
+      - Title: **To boost safety, Boeing turns to an old friend**
+      - **Summary:** Whomst among us hasn’t called up their ex in a moment of desperation?
+      Boeing isn’t above it. The crisis-ridden airplane manufacturer is paying $4.7 billion to buy Spirit AeroSystems, a supplier it had owned before spinning it off nearly 20 years ago. The company hopes that bringing Spirit back into the fold will help it improve the quality of its production as it faces an uproar over its safety culture.
+      Rewind to 2005: When Boeing spun off Spirit into its own company, it was symbolic of a broader strategy shift. The company moved to outsource more of its production to independent suppliers, like Spirit, to cut costs and juice profits, the NYT reports.
+      The two kept in close touch: Spirit makes parts for the 737 Max, 767, 777, and 787. Last year, Boeing accounted for 64% of its revenue.
+      But Spirit has its own quality control issues. It assembled the panel that blew off a flight on Jan. 5, sparking the dumpster fire Boeing finds itself engulfed in.
+      So this is going to be as awkward as a 20-year high school reunion. By buying Spirit, Boeing is taking on another small mountain of debt, while working to fix both itself and its troubled supplier.
+      Looking ahead… the Spirit deal comes as Boeing weighs a crucial decision this week: risk a trial or plead guilty over criminal fraud charges the DOJ is planning to bring.
+      - **URL:** [Source](https://apnews.com/article/boeing-acquisition-spirit-aerosystems-c6956d6f22355c95aa39a79eb384ff41#)
+    </EXAMPLE>
+
+
+edit_task:
+  description: >
+    Given the list of news articles that will be used in the newsletter, do the following things:
+    
+    - Rewrite the title of each news article to make it more engaging and interesting for the readers of the newsletter.
+    - Add a paragraph to each news article that explains why this news is important and how it can impact the readers of the newsletter. The style should be similar to a Morning Brew newsletter.
+    - Reorder the bullet points in a way that the most relevant news and topics are at the top of the list based on the importance of the news and topics.
+    - Verify that the news articles are directly related to {topic} and that they are not off-topic. If they are off-topic, remove them from the list.
+    - Verify that the URLs are correct and that they lead to the correct news article. They should lead to a news article and not to a list of articles or the front page of a website. If the URL is incorrect, ask the researcher to provide the correct URL.
+    - Do not search for additional news articles or change the content of the news articles. Only edit the existing news articles.
+
+    IMPORTANT INSTRUCTIONS ABOUT USING TOOLS: When using tools, DO NOT ESCAPE the underscore character "_", EVER. If you need to use a tool and pass in a parameter called 'search_query', you should write 'search_query', not 'search\_query'. THIS IS VERY IMPORTANT, else the tool will not work.
+
+  expected_output: >
+    A markdown document with all the news to be included in the newsletter of the week. The document should have a title related to the curated stories of the week and a list of news articles.
+    
+    Each one should contain:
+    - Title:
+    - Summary: 
+    - Why this is important:
+    - Source: [URL of the article]
+
+    Here is an example of a document that you are expected to produce:
+    <EXAMPLE>
+    Title of the day: Golden Goose will have to wait for IPO gold
+
+      - **Title:** Golden Goose will have to wait for IPO gold
+        **Summary:** It’s not just Veruca Salt who isn’t getting a golden goose. The company known for selling shoes that look like they’ve been dragged through mud postponed its IPO, putting a pause on what has been a big year for European companies going public.
+        Golden Goose announced Tuesday it wouldn’t go public in Milan on Friday as planned due to fraught market conditions in Europe stemming from parliamentary elections across the Continent.
+        In France, President Macron’s recent decision to call a snap election caused volatility throughout the market, hitting the luxury sector particularly hard. But this goose remains golden: While other luxury retailers have struggled, the Italian sneaker company’s revenue rose 12% in Q1 this year.
+        The decision to wait came a day before the IPO was priced, but bankers had indicated that Golden Goose would debut on the lower end of its range of between €9.50 and €10.50 a share (or $10.21 and $11.28), targeting a valuation of around $2 billion.
+        **Why this is important:** There’s a gray cloud over Europe’s IPO streak as political uncertainty keeps investors on edge. Over in the UK, a REIT called off its IPO last week due to tepid demand.
+        **Source:** "Title of the article" by ["Source"](https://www.cnbc.com/2024/06/19/golden-goose-postpones-milan-ipo-citing-political-turmoil-in-europe.html#:~:text=Italian%20sportswear%20brand%20Golden%20Goose,significant%20deterioration”%20in%20market%20conditions)
+
+
+      - **Title:** Thousands of car dealerships just got hacked…twice
+        **Summary:** Imagine if Google Workspace or Microsoft Teams crashed, but you still had to go on with your workday. Well, that’s the vibe at car dealers across the US this week: Following back-to-back cyberattacks on Tuesday and Wednesday evenings, one of the auto industry’s most popular softwares is temporarily shut down, leaving workers no choice but to record orders with pen and paper.
+        Hand cramps galore. It’s not clear how many dealerships have been affected or whether customer data has been stolen, but around 15,000 US car dealers—including General Motors and Group 1 Automotive sellers—use the hacked software company in question, CDK Global, to manage payroll, sales, operations, and pretty much everything else.
+        Some dealers have kept business rolling (albeit more slowly) despite not being able to access ongoing deals or customer info. The outage is worse where CDK services are integrated throughout daily operations. According to employees commiserating on Reddit…
+        - Some dealerships can’t even look up car parts, receive calls on work phones, or pay out earnings.
+        - One user described their place of work’s contingency plan as “everyone freaking out and writing sh*t down on sticky notes.”
+        **Why this is important:** The outage could last for several days, CNN reported. That could drag on summer car sales and the 3% to 3.5% of GDP that the US auto industry generates each year.
+        **Source:** "Title of the article" by ["Source"](https://www.cbsnews.com/news/cdk-cyber-attack-outage-auto-dealerships-cbs-news-explains/)
+
+
+        [... more news articles ...]
+
+    </EXAMPLE>
+
+
+newsletter_task:
+  description: >
+    Fill the following HTML template with exactly the same information that is given to you.
+    
+    Follow these rules:
+    - Do not truncate the information or change the order of the elements. 
+    - Do not modify the content of the news articles.
+    - Do not add any additional information to the newsletter.
+    - Add ALL the news stories provided to the newsletter. Even if the template only shows one news story, you should include all the news stories provided as context using the format provided in the template.
+
+    {html_template}
+  expected_output: >
+    Return ONLY the contents of the HTML template, without any triple quotes like '```', '```html' or any other text. 
+    This output will be saved as a HTML file and sent to the subscribers. 
