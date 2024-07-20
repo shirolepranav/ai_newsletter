@@ -7,7 +7,7 @@ research_task:
     - Only include articles that are especially relevant to {topic}. Do not include any news that are not directly related to {topic}. 
     - Do not include sources that are not a news article. If the content of the page includes a list of articles or looks like the front page of a website, do not include it in the list!
     - Write a very LONG and DETAILED summary of the news IN THE STYLE OF a Morning Brew newsletter. Make the summary as long as necessary to include all the relevant information.
-    - Include the URL of the article where you found the news.
+    - You must include the exact URL of the article where you found the news.
     - Include a minimum of 5 news articles and a maximum of 8 news articles in the list.
     - When using the Search Tool, your search query should be concise (for example, "latest news on {topic}").
 
@@ -92,7 +92,7 @@ edit_task:
         In France, President Macron’s recent decision to call a snap election caused volatility throughout the market, hitting the luxury sector particularly hard. But this goose remains golden: While other luxury retailers have struggled, the Italian sneaker company’s revenue rose 12% in Q1 this year.
         The decision to wait came a day before the IPO was priced, but bankers had indicated that Golden Goose would debut on the lower end of its range of between €9.50 and €10.50 a share (or $10.21 and $11.28), targeting a valuation of around $2 billion.
         **Why this is important:** There’s a gray cloud over Europe’s IPO streak as political uncertainty keeps investors on edge. Over in the UK, a REIT called off its IPO last week due to tepid demand.
-        **Source:** "Title of the article" by ["Source"](https://www.cnbc.com/2024/06/19/golden-goose-postpones-milan-ipo-citing-political-turmoil-in-europe.html#:~:text=Italian%20sportswear%20brand%20Golden%20Goose,significant%20deterioration”%20in%20market%20conditions)
+        - **URL:** [Source](https://www.cnbc.com/2024/06/19/golden-goose-postpones-milan-ipo-citing-political-turmoil-in-europe.html#:~:text=Italian%20sportswear%20brand%20Golden%20Goose,significant%20deterioration”%20in%20market%20conditions)
 
 
       - **Title:** Thousands of car dealerships just got hacked…twice
@@ -102,7 +102,7 @@ edit_task:
         - Some dealerships can’t even look up car parts, receive calls on work phones, or pay out earnings.
         - One user described their place of work’s contingency plan as “everyone freaking out and writing sh*t down on sticky notes.”
         **Why this is important:** The outage could last for several days, CNN reported. That could drag on summer car sales and the 3% to 3.5% of GDP that the US auto industry generates each year.
-        **Source:** "Title of the article" by ["Source"](https://www.cbsnews.com/news/cdk-cyber-attack-outage-auto-dealerships-cbs-news-explains/)
+        - **URL:** [Source](https://www.cbsnews.com/news/cdk-cyber-attack-outage-auto-dealerships-cbs-news-explains/)
 
 
         [... more news articles ...]
