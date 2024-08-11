@@ -34,7 +34,8 @@ class NewsletterGenUI:
             st.write(
                 """
                 To generate a newsletter, enter a topic. \n
-                Your team of AI agents will generate a newsletter for you!
+                You can run the generation multiple times.
+                If you want to save a newsletter, make sure to download the HTML template before running the generation again.
                 """
             )
             st.text_input("Topic", key="topic")
