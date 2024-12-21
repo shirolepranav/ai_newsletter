@@ -1,6 +1,7 @@
 import streamlit as st
 from newsletter_gen.crew import NewsletterGenCrew
 from dotenv import load_dotenv
+import os
 
 class NewsletterGenUI:
     def __init__(self):
@@ -10,6 +11,8 @@ class NewsletterGenUI:
             st.session_state.topic = ""
         if "days" not in st.session_state:
             st.session_state.days = 1
+        if "model_provider" not in st.session_state:
+            st.session_state.model_provider = "openai"
         if "newsletter" not in st.session_state:
             st.session_state.newsletter = ""
         if "generating" not in st.session_state:
@@ -17,19 +20,35 @@ class NewsletterGenUI:
 
     def load_html_template(self):
         try:
-            with open("src/newsletter_gen/config/newsletter_template.html", "r") as file:
+            template_path = os.path.join('src', 'newsletter_gen', 'config', 'newsletter_template.html')
+            with open(template_path, "r") as file:
                 return file.read()
         except FileNotFoundError:
             st.error("Newsletter template file not found. Please check the file path.")
             return ""
 
-    def generate_newsletter(self, topic, days):
+    def check_api_key(self, provider):
+        key_mapping = {
+            'openai': 'OPENAI_API_KEY',
+            'llama': 'LLAMA_API_KEY',
+            'anthropic': 'ANTHROPIC_API_KEY'
+        }
+        key = os.getenv(key_mapping[provider])
+        return bool(key and key.strip())
+
+    def generate_newsletter(self, topic, days, model_provider):
+        if not self.check_api_key(model_provider):
+            raise ValueError(f"No API key found for {model_provider}. Please check your .env file.")
+            
         inputs = {
             "topic": topic,
             "days": days,
+            "model_provider": model_provider,
             "html_template": self.load_html_template(),
         }
-        return NewsletterGenCrew().crew().kickoff(inputs=inputs)
+        # Create a new instance of NewsletterGenCrew and call kickoff directly
+        crew = NewsletterGenCrew(model_provider=model_provider)
+        return crew.kickoff(inputs=inputs)
 
     def sidebar(self):
         with st.sidebar:
@@ -39,7 +58,8 @@ class NewsletterGenUI:
                 To generate a newsletter:
                 1. Enter a topic
                 2. Select the number of days for recent news
-                3. Click Generate Newsletter
+                3. Choose your preferred AI model
+                4. Click Generate Newsletter
                 
                 You can run the generation multiple times.
                 If you want to save a newsletter, make sure to download the HTML template before running the generation again.
@@ -54,7 +74,26 @@ class NewsletterGenUI:
                 key="days",
                 help="Select number of days to look back for news articles"
             )
-            if st.button("Generate Newsletter"):
+            
+            # Model selection with API key status
+            model_options = {
+                'openai': 'OpenAI GPT-4',
+                'llama': 'Meta\'s Llama-2',
+                'anthropic': 'Anthropic Claude'
+            }
+            
+            model_provider = st.selectbox(
+                "Select AI Model",
+                options=list(model_options.keys()),
+                format_func=lambda x: model_options[x],
+                key="model_provider",
+                help="Choose which AI model to use for generating the newsletter"
+            )
+            
+            if not self.check_api_key(model_provider):
+                st.warning(f"No API key found for {model_options[model_provider]}. Please add it to your .env file.")
+            
+            if st.button("Generate Newsletter", disabled=not self.check_api_key(model_provider)):
                 st.session_state.generating = True
 
     def newsletter_generation(self):
@@ -63,7 +102,8 @@ class NewsletterGenUI:
                 try:
                     st.session_state.newsletter = self.generate_newsletter(
                         st.session_state.topic,
-                        st.session_state.days
+                        st.session_state.days,
+                        st.session_state.model_provider
                     )
                 except Exception as e:
                     st.error(f"An error occurred while generating the newsletter: {str(e)}")
