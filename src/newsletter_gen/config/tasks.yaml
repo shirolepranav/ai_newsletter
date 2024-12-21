@@ -1,15 +1,16 @@
 research_task:
   description: >
-    Conduct a thorough research about the latest news on {topic}. Be sure to look for sources that are reliable and publish recent news. Do not include articles that are not news material or that are not directly related to {topic}.
+    Conduct a thorough research about the latest news on {topic} from the past {days} day(s). Be sure to look for sources that are reliable and publish recent news. Do not include articles that are not news material or that are not directly related to {topic}.
     With this research, compile a list of the most relevant news stories that you found. 
 
     Follow these rules:
     - Only include articles that are especially relevant to {topic}. Do not include any news that are not directly related to {topic}. 
+    - Only include articles from the past {days} day(s). Older articles should not be included.
     - Do not include sources that are not a news article. If the content of the page includes a list of articles or looks like the front page of a website, do not include it in the list!
     - Write a very LONG and DETAILED summary of the news IN THE STYLE OF a Morning Brew newsletter. Make the summary as long as necessary to include all the relevant information.
     - You must include the exact URL of the article where you found the news.
-    - Include a minimum of 5 news articles and a maximum of 8 news articles in the list.
-    - When using the Search Tool, your search query should be concise (for example, "latest news on {topic}").
+    - Include a minimum of 5 news articles and a maximum of 10 news articles in the list.
+    - When using the Search Tool, your search query should be concise and include the time range (for example, "latest news on {topic} in past {days} days").
 
     IMPORTANT INSTRUCTIONS ABOUT USING TOOLS: When using tools, DO NOT ESCAPE the underscore character "_", EVER. If you need to use a tool and pass in a parameter called 'search_query', you should write 'search_query', not 'search\_query'. THIS IS VERY IMPORTANT, else the tool will not work.
 
