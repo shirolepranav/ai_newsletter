@@ -4,67 +4,10 @@ import os
 import yaml
 
 class NewsletterGenCrew:
-    """NewsletterGen crew"""
-    
     def __init__(self, model_provider='openai'):
         self.model_provider = model_provider
         self.llm_config = self._get_llm_config()
-        # Update paths to use proper directory structure
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        config_dir = os.path.join(current_dir, 'config')
-        self.agents_config = self._load_yaml(os.path.join(config_dir, 'agents.yaml'))
-        self.tasks_config = self._load_yaml(os.path.join(config_dir, 'tasks.yaml'))
-
-    def _load_yaml(self, file_path):
-        """Load YAML configuration file"""
-        try:
-            with open(file_path, 'r') as file:
-                return yaml.safe_load(file)
-        except Exception as e:
-            print(f"Error loading {file_path}: {str(e)}")
-            # Provide default configurations if files can't be loaded
-            if 'agents.yaml' in file_path:
-                return self._default_agents_config()
-            elif 'tasks.yaml' in file_path:
-                return self._default_tasks_config()
-            return {}
-
-    def _default_tasks_config(self):
-        """Default configuration for tasks if YAML fails to load"""
-        return {
-            'research_task': {
-                'description': 'Conduct thorough research about the latest news on {topic} from the past {days} day(s).',
-                'expected_output': 'A markdown document with the most relevant news stories.'
-            },
-            'edit_task': {
-                'description': 'Review and improve the content quality of the researched news articles.',
-                'expected_output': 'A markdown document with edited and improved news articles.'
-            },
-            'newsletter_task': {
-                'description': 'Compile the final newsletter using the provided HTML template.\n{html_template}',
-                'expected_output': 'A complete HTML newsletter with all articles formatted correctly.'
-            }
-        }
-
-    def _default_agents_config(self):
-        """Default configuration for agents if YAML fails to load"""
-        return {
-            'researcher': {
-                'role': 'Senior Researcher',
-                'goal': 'Uncover the latest news developments on the given topic.',
-                'backstory': 'You are a seasoned journalist with a nose for news, known for great research skills and ability to dig up interesting stories.'
-            },
-            'editor': {
-                'role': 'Editor-in-Chief',
-                'goal': 'Ensure the quality and accuracy of the final newsletter.',
-                'backstory': 'You are the Editor-in-Chief of a prestigious news organization, responsible for overseeing newsletter production.'
-            },
-            'designer': {
-                'role': 'Newsletter Compiler',
-                'goal': 'Fill the HTML template with the news articles provided.',
-                'backstory': 'You are responsible for compiling the HTML code of the newsletter, ensuring proper formatting.'
-            }
-        }
+        self._load_configurations()
 
     def _get_llm_config(self):
         """Get LLM configuration based on selected provider"""
@@ -86,6 +29,21 @@ class NewsletterGenCrew:
             }
         }
         return configs.get(self.model_provider)
+
+    def _load_configurations(self):
+        """Load YAML configurations"""
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        config_dir = os.path.join(current_dir, 'config')
+        
+        # Load agents config
+        agents_path = os.path.join(config_dir, 'agents.yaml')
+        with open(agents_path, 'r') as file:
+            self.agents_config = yaml.safe_load(file)
+            
+        # Load tasks config
+        tasks_path = os.path.join(config_dir, 'tasks.yaml')
+        with open(tasks_path, 'r') as file:
+            self.tasks_config = yaml.safe_load(file)
 
     def researcher(self) -> Agent:
         """Create researcher agent"""
@@ -121,9 +79,44 @@ class NewsletterGenCrew:
         )
 
     def create_tasks(self, inputs):
-        """Create tasks with proper input substitution"""
+        """Create tasks based on input type"""
         tasks = []
+        
+        if inputs.get('from_document', False):
+            # For document-based generation
+            tasks.extend(self._create_document_tasks(inputs))
+        else:
+            # For web search-based generation
+            tasks.extend(self._create_web_tasks(inputs))
+            
+        return tasks
 
+    def _create_document_tasks(self, inputs):
+        """Create tasks for document-based generation"""
+        tasks = []
+        
+        # Editor task to process document content
+        edit_config = self.tasks_config['edit_task'].copy()
+        tasks.append(Task(
+            description=f"Review and structure the following document content into newsletter format: {inputs['content']}",
+            expected_output=edit_config['expected_output'],
+            agent=self.editor()
+        ))
+        
+        # Newsletter compilation task
+        newsletter_config = self.tasks_config['newsletter_task'].copy()
+        tasks.append(Task(
+            description=newsletter_config['description'].format(**inputs),
+            expected_output=newsletter_config['expected_output'],
+            agent=self.designer()
+        ))
+        
+        return tasks
+
+    def _create_web_tasks(self, inputs):
+        """Create tasks for web search-based generation"""
+        tasks = []
+        
         # Research Task
         research_config = self.tasks_config['research_task'].copy()
         tasks.append(Task(
@@ -147,7 +140,7 @@ class NewsletterGenCrew:
             expected_output=newsletter_config['expected_output'],
             agent=self.designer()
         ))
-
+        
         return tasks
 
     def kickoff(self, inputs=None):
@@ -156,7 +149,7 @@ class NewsletterGenCrew:
             self.model_provider = inputs['model_provider']
             self.llm_config = self._get_llm_config()
 
-        # Create tasks with the provided inputs
+        # Create appropriate tasks based on input type
         tasks = self.create_tasks(inputs)
 
         # Create and run the crew

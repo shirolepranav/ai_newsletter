@@ -7,12 +7,28 @@ research_task:
     - Only include articles that are especially relevant to {topic}. Do not include any news that are not directly related to {topic}. 
     - Only include articles from the past {days} day(s). Older articles should not be included.
     - Do not include sources that are not a news article. If the content of the page includes a list of articles or looks like the front page of a website, do not include it in the list!
-    - Write a very LONG and DETAILED summary of the news IN THE STYLE OF a Morning Brew newsletter. Make the summary as long as necessary to include all the relevant information.
-    - You must include the exact URL of the article where you found the news.
+    - For each news article, write an EXTREMELY DETAILED and COMPREHENSIVE summary. Your summaries should be at least 300-400 words long and include:
+      * A thorough explanation of the main story
+      * Important background context and history
+      * Key figures or organizations involved
+      * Relevant statistics, numbers, or data
+      * Potential implications and future impact
+      * Related developments or connected stories
+      * Expert opinions and analysis
+      * Market reactions or public response where applicable
+    - Write in the style of a newsletter service like Morning Brew and The Hustle but with much more depth and detail than usual
+    - You must include the exact URL of the article where you found the news
     - Include a minimum of 5 news articles and a maximum of 10 news articles in the list.
-    - When using the Search Tool, your search query should be concise and include the time range (for example, "latest news on {topic} in past {days} days").
+    - When using the Search Tool, your search query should include the time range (for example, "latest news on {topic} in past {days} days").
 
-    IMPORTANT INSTRUCTIONS ABOUT USING TOOLS: When using tools, DO NOT ESCAPE the underscore character "_", EVER. If you need to use a tool and pass in a parameter called 'search_query', you should write 'search_query', not 'search\_query'. THIS IS VERY IMPORTANT, else the tool will not work.
+    IMPORTANT: Length and detail are crucial. Each article summary should be comprehensive enough to give readers a complete understanding of the story and its context.
+  expected_output: >
+    A markdown document with detailed news stories. Each story should contain:
+    - An extensive title that captures the main point
+    - A comprehensive summary of at least 300-400 words
+    - Full context and background information
+    - Analysis of implications
+    - Complete source attribution
 
   expected_output: >
     A markdown document with the most relevant news stories. Each news story should contain the following:
@@ -61,7 +77,7 @@ research_task:
     </EXAMPLE>
 
 
-edit_task:
+
   description: >
     Given the list of news articles that will be used in the newsletter, do the following things:
     
@@ -110,6 +126,45 @@ edit_task:
 
     </EXAMPLE>
 
+edit_task:
+  description: >
+    Given the list of news articles that will be used in the newsletter, do the following things:
+    
+    - Enhance each article to ensure maximum depth and comprehensiveness:
+      * Expand any sections that could benefit from more detail
+      * Add relevant context where needed
+      * Include additional background information
+      * Elaborate on implications and potential future impacts
+      * Add industry expert perspectives where applicable
+      * Explain technical terms and concepts thoroughly
+      * Connect the story to broader trends or related developments
+    
+    - For each article, add a substantial "Why This Matters" section that explains:
+      * The broader significance of the news
+      * Potential impact on different stakeholders
+      * Long-term implications for the industry/sector
+      * Connections to other important developments
+      * What readers should watch for next
+    
+    - Reorder the articles based on:
+      * Importance and impact of the news
+      * Depth of analysis required
+      * Relevance to the target audience
+      * Connection to current trends
+    
+    - Verify and enhance all source attributions
+    - Ensure all content strictly relates to {topic}
+    - Maintain the Morning Brew style while preserving depth and detail
+
+    IMPORTANT: The goal is to create a comprehensive, authoritative newsletter that gives readers everything they need to understand these developments fully.
+  expected_output: >
+    A markdown document with thoroughly edited and enhanced news articles, each containing:
+    - An engaging and informative title
+    - A comprehensive main summary (300-400+ words)
+    - Detailed background and context
+    - Expert analysis and perspectives
+    - Thorough "Why This Matters" section
+    - Complete source attribution
 
 newsletter_task:
   description: >
