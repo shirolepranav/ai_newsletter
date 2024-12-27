@@ -77,8 +77,8 @@ class NewsletterGenUI:
             
             # Model selection with API key status
             model_options = {
-                'openai': 'OpenAI GPT-4',
-                'llama': 'Meta\'s Llama-2',
+                'openai': 'OpenAI GPT',
+                'llama': 'Meta Llama',
                 'anthropic': 'Anthropic Claude'
             }
             
