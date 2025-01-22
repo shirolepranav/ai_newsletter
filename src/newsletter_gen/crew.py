@@ -167,4 +167,9 @@ class NewsletterGenCrew:
             verbose=2
         )
 
-        return crew.kickoff()
+        result = crew.kickoff()
+    
+        # Add this sanitization step
+        return result.replace('```html', '').replace('```', '').strip()
+    
+    

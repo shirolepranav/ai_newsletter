@@ -113,6 +113,7 @@ edit_task:
 
 newsletter_task:
   description: >
+    Return RAW HTML ONLY without any markdown formatting or backticks.
     Fill the following HTML template with exactly the same information that is given to you.
     
     Follow these rules:

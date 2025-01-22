@@ -126,5 +126,19 @@ class NewsletterGenUI:
         self.sidebar()
         self.newsletter_generation()
 
+    def check_api_key(self, provider):
+        key_mapping = {
+            'openai': 'OPENAI_API_KEY',
+            'llama': 'LLAMA_API_KEY',
+            'anthropic': 'ANTHROPIC_API_KEY'
+        }
+        
+        # Add debug print
+        print("Current environment variables:", os.environ) 
+        
+        key_name = key_mapping[provider]
+        key = os.getenv(key_name)
+        return bool(key and key.strip())
+
 if __name__ == "__main__":
     NewsletterGenUI().render()
