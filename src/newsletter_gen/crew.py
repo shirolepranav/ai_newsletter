@@ -70,17 +70,17 @@ class NewsletterGenCrew:
         """Get LLM configuration based on selected provider"""
         configs = {
             'openai': {
-                'model': os.getenv('OPENAI_MODEL_NAME', 'gpt-4-turbo-preview'),
+                'model': os.getenv('OPENAI_MODEL_NAME', 'gpt-4o'),
                 'api_key': os.getenv('OPENAI_API_KEY'),
                 'temperature': 0.7
             },
             'llama': {
-                'model': os.getenv('LLAMA_MODEL_NAME', 'llama-2-70b-chat'),
+                'model': os.getenv('LLAMA_MODEL_NAME', 'llama3.1-70b'),
                 'api_key': os.getenv('LLAMA_API_KEY'),
                 'temperature': 0.7
             },
             'anthropic': {
-                'model': os.getenv('ANTHROPIC_MODEL_NAME', 'claude-3-opus-20240229'),
+                'model': os.getenv('ANTHROPIC_MODEL_NAME', 'claude-3-opus-latest'),
                 'api_key': os.getenv('ANTHROPIC_API_KEY'),
                 'temperature': 0.7
             }
